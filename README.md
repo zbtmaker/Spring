@@ -166,9 +166,19 @@ title:Paris  &  artist:Jar Chou
 xmlns:p="http://www.springframework.org/schema/p"
 ```
 * p命名空间的语法
+如果注入的是字面量，那么直接是
+
 ```Java
+<bean id="?" class="?" p:属性名="?">
+</bean>
+```
+如果注入的是引用，那么语法如下
+```Java
+<bean id="?" class="?" p:属性名-ref="所注入bean的ID">
+</bean>
 
 ```
+最后的配置文件如下
 ```Java
 <?xml version="1.0" encoding="UTF-8"?>
 
