@@ -1,5 +1,5 @@
 # Spring
-异常信息
+异常信息1
 ```Java
 Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [chapter2.xmlbean] for bean with name 'helloWorld' defined in class path resource [bean.xml]; nested exception is java.lang.ClassNotFoundException: chapter2.xmlbean
 Exception in thread "main" org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [chapter2.xmlbean] for bean with name 'helloWorld' defined in class path resource [bean.xml]; nested exception is java.lang.ClassNotFoundException: chapter2.xmlbean
@@ -25,4 +25,14 @@ Caused by: java.lang.ClassNotFoundException: chapter2.xmlbean
 	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1372)
 	... 10 more
 
+```
+异常信息2
+```
+Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'HelloWorld' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:686)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1210)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1089)
+	at chapter2.xmlbean.HelloWorldTest.main(HelloWorldTest.java:12)
 ```
