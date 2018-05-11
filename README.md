@@ -1,4 +1,52 @@
 # Spring
+构造器注入-字面量注入
+```Java
+package chapter2.xmlbean;
+
+public class HelloWorld {
+	private String message;
+	
+	public HelloWorld(String message) {
+		this.message = message;
+	}
+	public void getMessage() {
+		System.out.println("YourMessage ： "+ message);
+	}
+	
+}
+```
+配置方式一：使用<constructor-arg>元素
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
+       <constructor-arg type="java.lang.String" value="Hello Good Life!"/>
+   </bean>
+
+</beans>
+```
+配置方式二
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
+       <constructor-arg type="java.lang.String" value="Hello Good Life!"/>
+   </bean>
+
+</beans>
+```
+Setter方法注入-注入字面量
+
 异常信息1
 ```Java
 Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [chapter2.xmlbean] for bean with name 'helloWorld' defined in class path resource [bean.xml]; nested exception is java.lang.ClassNotFoundException: chapter2.xmlbean
@@ -35,4 +83,112 @@ Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitio
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1089)
 	at chapter2.xmlbean.HelloWorldTest.main(HelloWorldTest.java:12)
+```
+bean.xml配置文件如下
+```Java
+<bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
+       <constructor-arg type="java.lang.String" value="Hello Good Life!"/>
+   </bean>
+```
+而get语句如下
+```Java
+HelloWorld hwl = (HelloWorld)context.getBean("HelloWorld");
+```
+异常分析：
+
+Setter方法注入-注入字面量
+```Java
+package chapter2.xmlbean;
+
+public class BlankDisk {
+	private String title;
+	private String artist;
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setArtist(String artist) {
+		this.artist=artist;
+	}
+	
+	public void message() {
+		System.out.println("title:"+title+"  &  "+"artist:"+artist);
+	}
+}
+```
+测试代码
+```Java
+package chapter2.xmlbean;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class DiskTest {
+	private static ApplicationContext context;
+
+	public static void main(String[] args) {
+		context = new ClassPathXmlApplicationContext("bean.xml");
+		BlankDisk bd = (BlankDisk)context.getBean("blankDisk");
+		bd.message();
+	}
+}
+```
+配置文件-使用<property>元素
+```Java
+package chapter2.xmlbean;
+
+public class BlankDisk {
+	private String title;
+	private String artist;
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setArtist(String artist) {
+		this.artist=artist;
+	}
+	
+	public void message() {
+		System.out.println("title:"+title+"  &  "+"artist:"+artist);
+	}
+}
+```
+输出结果
+```Java
+title:Paris  &  artist:Jar Chou
+```
+配置文件-使用p命名空间
+需要注意的是两个：第一个是要引入约束，第二个是使用p命名空间的语法
+* 在beans中引入约束如下
+```Java
+xmlns:p="http://www.springframework.org/schema/p"
+```
+* p命名空间的语法
+```Java
+
+```
+```Java
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!--  
+   <bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
+		<property name="message" value="Hello Good Future!"/>
+   </bean>
+   -->
+   <bean id="blankDisk" class="chapter2.xmlbean.BlankDisk"
+   			p:title="Paris"
+   			p:artist="Jar Chou">
+   		<!-- 
+   		<property name="title" value="Paris"/>
+   		<property name="artist" value="Jar Chou"/>
+   		 -->
+   </bean>
+</beans>
 ```
