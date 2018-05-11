@@ -195,6 +195,79 @@ xmlns:p="http://www.springframework.org/schema/p"
    <bean id="blankDisk" class="chapter2.xmlbean.BlankDisk"
    			p:title="Paris"
    			p:artist="Jar Chou">
+   </bean>
+</beans>
+```
+##Setter方法注入-注入list/set
+```Java
+package chapter2.xmlbean;
+
+import java.util.List;
+
+public class BlankDisk {
+	private String title;
+	private String artist;
+	
+	private List<String> tracks;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setArtist(String artist) {
+		this.artist=artist;
+	}
+	
+	public void setTracks(List<String> tracks) {
+		this.tracks = tracks;
+	}
+	public void message() {
+		System.out.println("title:"+title+"  &  "+"artist:"+artist);
+		for(String s:tracks) {
+			System.out.println(s);
+		}
+	}
+}
+```
+配置文件
+如果注入的是字面量语法：
+<property name="属性名">
+	<list>
+		<value>字面量1</value>
+		<value>字面量2</value>
+	<list>
+</property>
+```Java
+如果注入的是引用语法：
+```Java
+<property name="属性名">
+	<list>
+		<ref bean="id1"/>
+		<ref bean="id2">
+	<list>
+</property>
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!--  
+   <bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
+		<property name="message" value="Hello Good Future!"/>
+   </bean>
+   -->
+   <bean id="blankDisk" class="chapter2.xmlbean.BlankDisk"
+   			p:title="Paris"
+   			p:artist="Jar Chou">
+   		<property name="tracks">
+   			<list>
+   				<value>Lonely</value>
+   				<value>Courage</value>
+   				<value>Confident</value>
+   			</list>
+   		</property>
    		<!-- 
    		<property name="title" value="Paris"/>
    		<property name="artist" value="Jar Chou"/>
