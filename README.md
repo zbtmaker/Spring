@@ -246,6 +246,8 @@ public class BlankDisk {
 	<list>
 </property>
 ```
+最终的配置文件为
+```j
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -253,11 +255,6 @@ public class BlankDisk {
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<!--  
-   <bean id="helloWorld" class="chapter2.xmlbean.HelloWorld">
-		<property name="message" value="Hello Good Future!"/>
-   </bean>
-   -->
    <bean id="blankDisk" class="chapter2.xmlbean.BlankDisk"
    			p:title="Paris"
    			p:artist="Jar Chou">
