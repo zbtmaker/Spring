@@ -1,7 +1,7 @@
 # 1、Bean作用域-Singleton模式
 Singleton方式的作用域表明Spring在同一个ApplicationContext下只会调用JavaBean类的一次构造方法，如果第二次调用返回的是同一个JavaBean实例。这种方式就好像我们将这个JavaBean类实现了单例模式的方式来创建我们的对象。
 ## 1.1、Singleton在同一个ApplicationContext下
-### 1.1.1、JavaBean实例
+### <1>JavaBean实例
 ```Java
 package chapter3.scopingbeans;
 
@@ -28,7 +28,7 @@ public class LifeBeans {
 	}
 }
 ```
-### 1.1.2、配置文件
+### <2>配置文件
 ```Java
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -47,7 +47,7 @@ public class LifeBeans {
 <bean id="lifeBeans" class="chapter3.scopingbeans.LifeBeans" scope="singleton">
 ```
 
-### 1.1.3、测试代码
+### <3>测试代码
 ```Java
 @Test
 	public void testSingletone() {
@@ -65,7 +65,7 @@ public class LifeBeans {
 		ac.close();
 	}
 ```
-### 1.1.4、输出结果
+### <4>输出结果
 ```Java
 Constructor of LifeBean()
 l1 and l2 reference the same address of LifeBean
@@ -75,7 +75,7 @@ l1 and l2 reference the same address of LifeBean
 
 ## 1.2、Sington在不同的ApplicationContext下
 前面我们提到了在同一个ApplicationContext下，采用默认的作用域或者通过设置scope属性使得Spring采用单例模式的方式去创建Bean。使用这种方式返回的都是同一个实例，那么我们如果在两个或者多个ApplicationContext下，也采用单例模式创建Bean实例，那么是两个变量引用同一个变量还是引用不同的变量？我们来看下面的测试代码(JavaBean类、配置文档和前面的一致)
-### 1.2.1、测试代码
+### <1>测试代码
 ```Java
 @Test
 	public void testSingletonContext() {
@@ -96,7 +96,7 @@ l1 and l2 reference the same address of LifeBean
 		ac.close();
 	}
 ```
-### 1.2.2、输出结果
+### <2>输出结果
 ```Java
 Constructor of LifeBean()
 Constructor of LifeBean()
@@ -105,7 +105,7 @@ l1 and l2 reference the different address of LifeBean
 * 结论:我们可以从结果中看到调用了两次构造方法。因此在不同的ApplicationContext中使用调用getBean()方法，在每个ApplicationContext下都会调用一次构造方法创建一个Bean实例。
 
 # 2、Bean作用域-prototype模式
-### 2.1、JavaBean类
+### <1>avaBean类
 ```Java
 package chapter3.scopingbeans;
 
@@ -135,7 +135,7 @@ public class LifeBeans {
 	}
 }
 ```
-### 2.2配置文件
+### <2>配置文件
 ```Java
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -150,7 +150,7 @@ public class LifeBeans {
    </bean>
 </beans>
 ```
-### 2.3输出结果
+### <3>输出结果
 ```Java
 Constructor of LifeBean()
 Constructor of LifeBean()
