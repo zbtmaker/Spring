@@ -81,7 +81,7 @@ public class Person implements BeanFactoryAware,ApplicationContextAware,
 	}
 }
 ```
-### 配置文件
+### <2>配置文件
 ```Java
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -99,7 +99,7 @@ public class Person implements BeanFactoryAware,ApplicationContextAware,
     init-method="selfDefineInit" destroy-method="selfDefineDestory"/> 
 </beans>
 ```
-### 输出结果
+### <3>输出结果
 ```Java
 信息: Loading XML bean definitions from class path resource [beanlifecycle.xml]
 Spring call the setBeanFactory to transfer the Instance of BeanFactory
@@ -115,5 +115,5 @@ Spring call the destory() to call the destory-method of Person bean
 Spring call the destory-method by self definition
 ```
 参考文献
-[1]http://www.cnblogs.com/zrtqsk/p/3735273.html
+[1]http://www.cnblogs.com/zrtqsk/p/3735273.html  
 [2]<Spring in Action>>chapter1-bean的生命周期
