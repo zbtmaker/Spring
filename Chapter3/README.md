@@ -102,7 +102,8 @@ Constructor of LifeBean()
 Constructor of LifeBean()
 l1 and l2 reference the different address of LifeBean
 ```
-* 结论:我们可以从结果中看到调用了两次构造方法。因此在不同的ApplicationContext中使用调用getBean()方法，在每个ApplicationContext下都会调用一次构造方法创建一个Bean实例。
+### <3> 结论
+我们可以从结果中看到调用了两次构造方法。因此在不同的ApplicationContext中使用调用getBean()方法，在每个ApplicationContext下都会调用一次构造方法创建一个Bean实例。
 
 # 2、Bean作用域-prototype模式
 ### <1>avaBean类
