@@ -114,6 +114,6 @@ chapter1.beanlifecycle.Person@3ecd23d9
 Spring call the destory() to call the destory-method of Person bean
 Spring call the destory-method by self definition
 ```
-参考文献
+### <4>参考文献
 [1]http://www.cnblogs.com/zrtqsk/p/3735273.html  
 [2]<Spring in Action>>chapter1-bean的生命周期
