@@ -106,6 +106,7 @@ l1 and l2 reference the different address of LifeBean
 我们可以从结果中看到调用了两次构造方法。因此在不同的ApplicationContext中使用调用getBean()方法，在每个ApplicationContext下都会调用一次构造方法创建一个Bean实例。
 
 # 2、Bean作用域-prototype模式
+如果我们在<bean>元素中设置属性scope为prototype，那么Spring在每个ApplicationContext创建Bean实例时都会调用JavaBean中的无参构造方法(如果是有参构造方法并在配置文件中配置了<constructor-arg>元素则调用了有参的构造方法)来创建一个JavaBean实例。也就是相当于每次创建JavaBean实例的时候再用的都是new一个对象的方式，因此返回的两个实例的地址是不相等的(如果调用两个实例的equals方法，还是相等的)。
 ### <1>avaBean类
 ```Java
 package chapter3.scopingbeans;
@@ -136,7 +137,9 @@ public class LifeBeans {
 	}
 }
 ```
+
 ### <2>配置文件
+我们如果要设置Spring采用prototype的方式进行创建Bean实例，那么我们就必须在<bean>实例中设置scope="prototype"。
 ```Java
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -157,6 +160,8 @@ Constructor of LifeBean()
 Constructor of LifeBean()
 l1 and l2 reference the different address of LifeBean
 ```
+从结果我们也可以看到，调用了两次getBean方法则调用了两次构造方法来创建Bean实例，因此这两个实例变量必然引用的是不同的地址
+
 
 
 
