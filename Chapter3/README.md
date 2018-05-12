@@ -1,5 +1,5 @@
-# Bean的作用域
-
+# Bean作用域-Singleton模式
+Singleton方式的作用域表明Spring在同一个ApplicationContext下只会调用JavaBean类的一次构造方法，如果第二次调用返回的是同一个JavaBean实例。这种方式就好像我们将这个JavaBean类实现了单例模式的方式来创建我们的对象。
 ## 1、Singleton在同一个Context下
 * JavaBean实例
 ```Java
@@ -98,22 +98,14 @@ l1 and l2 reference the same address of LifeBean
 ```
 * 输出结果
 ```Java
-五月 12, 2018 8:09:31 下午 org.springframework.context.support.AbstractApplicationContext prepareRefresh
-信息: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6956de9: startup date [Sat May 12 20:09:31 CST 2018]; root of context hierarchy
-五月 12, 2018 8:09:31 下午 org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
-信息: Loading XML bean definitions from class path resource [LifeBeans.xml]
 Constructor of LifeBean()
-五月 12, 2018 8:09:32 下午 org.springframework.context.support.AbstractApplicationContext prepareRefresh
-信息: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@670b40af: startup date [Sat May 12 20:09:32 CST 2018]; root of context hierarchy
-五月 12, 2018 8:09:32 下午 org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
-信息: Loading XML bean definitions from class path resource [LifeBeans.xml]
 Constructor of LifeBean()
 l1 and l2 reference the different address of LifeBean
-五月 12, 2018 8:09:32 下午 org.springframework.context.support.AbstractApplicationContext doClose
-信息: Closing org.springframework.context.support.ClassPathXmlApplicationContext@670b40af: startup date [Sat May 12 20:09:32 CST 2018]; root of context hierarchy
-五月 12, 2018 8:09:32 下午 org.springframework.context.support.AbstractApplicationContext doClose
-信息: Closing org.springframework.context.support.ClassPathXmlApplicationContext@6956de9: startup date [Sat May 12 20:09:31 CST 2018]; root of context hierarchy
 ```
+* 结论:我们可以从结果中看到调用了两次构造方法。因此在不同的ApplicationContext中使用调用getBean()方法，在每个ApplicationContext下都会调用一次构造方法创建一个Bean实例。
+
+# Bean作用域-prototype模式
+
 
 
 
