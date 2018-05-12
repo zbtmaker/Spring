@@ -270,8 +270,50 @@ public class BlankDisk {
 ```
 
 ## 构造器注入和Setter方法注入
-### 当一个JavaBean中同时写了带参构造和无参构造方法，并且我们在配置文件中配置了带参构造方法的注入属性，此时Spring不会调用无参构造
 
+### 1、当一个JavaBean中没有带参的构造方法，同时也没有写无参的构造方法时，系统会自动调用无参的构造方法
+JavaBean类
+```Java
+package chapter3.scopingbeans;
+
+public class LifeBeans {
+	private String name;
+	
+	public LifeBeans() {
+		System.out.println("Constructor of LifeBean()");
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void init() {
+		System.out.println("this is init of LifeBean");
+	}
+	
+	public void destory() {
+		System.out.println("this is destory of LifeBean"+this);
+	}
+}
+```
+* 配置文件
+```Java	
+   <bean id="lifeBeans" class="chapter3.scopingbeans.LifeBeans" scope="singleton">
+    <property name="name" value="Jay Chou"/> 
+   	<!-- <constructor-arg value="Jack Chen"/> -->
+   </bean>
+```
+* 输出结果
+```Java
+Constructor of LifeBean()
+Jay Chou
+```
+
+### 2、当一个JavaBean中同时写了带参构造和无参构造方法，并且我们在配置文件中配置了带参构造方法的注入属性，此时Spring不会调用无参构造
 ```Java
 package chapter3.scopingbeans;
 
@@ -316,8 +358,9 @@ public class LifeBeans {
    </bean>
 </beans>
 ```
-### 当一个JavaBean中没有带参的构造方法，同时也没有写无参的构造方法时，系统会自动调用无参的构造方法
-JavaBean类
+
+### 3、当一个JavaBean同时采用构造器注入和Setter注入时，系统会自动忽略构造器注入的方式
+* JavaBean类
 ```Java
 package chapter3.scopingbeans;
 
@@ -327,7 +370,9 @@ public class LifeBeans {
 	public LifeBeans() {
 		System.out.println("Constructor of LifeBean()");
 	}
-	
+	public LifeBeans(String name) {
+		this.name = name;
+	}
 	public String getName() {
 		return name;
 	}
@@ -344,13 +389,22 @@ public class LifeBeans {
 		System.out.println("this is destory of LifeBean"+this);
 	}
 }
+
 ```
 * 配置文件
-```Java	
+```Java
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
    <bean id="lifeBeans" class="chapter3.scopingbeans.LifeBeans" scope="singleton">
     <property name="name" value="Jay Chou"/> 
-   	<!-- <constructor-arg value="Jack Chen"/> -->
+   	<constructor-arg value="Jack Chen"/>
    </bean>
+</beans>
 ```
 * 输出结果
 ```Java
