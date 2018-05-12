@@ -247,7 +247,7 @@ public class BlankDisk {
 </property>
 ```
 最终的配置文件为
-```j
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -265,10 +265,95 @@ public class BlankDisk {
    				<value>Confident</value>
    			</list>
    		</property>
-   		<!-- 
-   		<property name="title" value="Paris"/>
-   		<property name="artist" value="Jar Chou"/>
-   		 -->
    </bean>
 </beans>
+```
+
+## 构造器注入和Setter方法注入
+### 当一个JavaBean中同时写了带参构造和无参构造方法，并且我们在配置文件中配置了带参构造方法的注入属性，此时Spring不会调用无参构造
+
+```Java
+package chapter3.scopingbeans;
+
+public class LifeBeans {
+	private String name;
+	
+	public LifeBeans() {
+		System.out.println("Constructor of LifeBean()");
+	}
+	public LifeBeans(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void init() {
+		System.out.println("this is init of LifeBean");
+	}
+	
+	public void destory() {
+		System.out.println("this is destory of LifeBean"+this);
+	}
+}
+```
+配置文件LifeBeans.xml
+```Java
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+   <bean id="lifeBeans" class="chapter3.scopingbeans.LifeBeans" scope="singleton">
+   	<!-- <property name="name" value="Jay Chou"/> -->
+   	<constructor-arg value="Jack Chen"/>
+   </bean>
+</beans>
+```
+### 当一个JavaBean中没有带参的构造方法，同时也没有写无参的构造方法时，系统会自动调用无参的构造方法
+JavaBean类
+```Java
+package chapter3.scopingbeans;
+
+public class LifeBeans {
+	private String name;
+	
+	public LifeBeans() {
+		System.out.println("Constructor of LifeBean()");
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void init() {
+		System.out.println("this is init of LifeBean");
+	}
+	
+	public void destory() {
+		System.out.println("this is destory of LifeBean"+this);
+	}
+}
+```
+* 配置文件
+```Java	
+   <bean id="lifeBeans" class="chapter3.scopingbeans.LifeBeans" scope="singleton">
+    <property name="name" value="Jay Chou"/> 
+   	<!-- <constructor-arg value="Jack Chen"/> -->
+   </bean>
+```
+* 输出结果
+```Java
+Constructor of LifeBean()
+Jay Chou
 ```
